@@ -1,0 +1,45 @@
+
+=============== Implicitly Wait   vs   Thread.sleep =======================
+
+    = Thread.sleep() =
+
+    This method is from Java, not Selenium. It pauses the program based on given millisecond.
+    It waits for the duration given. be careful not to use too long otr to less.
+    It is recommended to minimize the use of thread.sleep using too much slows the execution of tests.
+
+    - call every time you need
+    - wait for whole duration, not dynamic(static)
+    - not selenium wait
+ ============================================================================
+
+
+ = Implicitly Wait =
+
+ driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS); //time should be over visibility time
+
+ - call it once, (set of driver)
+ - waits while trying to findElement
+ - wait until element found or time runs out(dynamic)
+ - applies for all findElement methods
+
+ === HOW FIND ELEMENT METHODS WORK?  ===
+
+ We provide locator and try to find element to do same actions using findElement method
+
+ 1-  if element is found it will return WebElement
+
+ 2-  if element is not found
+          -it will check ImplicitlyWait
+
+          YES:
+          - it will keep trying to locate element uo to time we set
+          - if it finds it inside this time it will return WebElement
+          - Otherwise it will throw NSE (No such element)
+
+          NO: it will throw NSE (No such element)
+
+    NOTES:
+      - This waits for element to be found in HTML, It only works when we call findElement method.
+
+
+
